@@ -1,0 +1,39 @@
+{
+  "name": "kekstagram",
+  "version": "25.0.0",
+  "private": true,
+  "description": "Личный проект «{{projectTitle}}» от HTML Academy",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Seraf-seraf/kekstagram.git"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "browser-sync": "^2.29.3",
+    "del": "^7.0.0",
+    "eslint": "8.7.0",
+    "eslint-config-htmlacademy": "5.0.0",
+    "gulp": "^4.0.2",
+    "gulp-dart-sass": "^1.1.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-libsquoosh": "^1.1.2",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^9.0.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-svgo": "^2.2.1",
+    "gulp-terser": "^2.1.0",
+    "gulp-webp": "^4.0.1",
+    "postcss-csso": "^6.0.1"
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "browser-sync start --server --no-ui --files \"js/**/*.js\"",
+    "lint": "eslint js/"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  }
+}
