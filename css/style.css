@@ -196,7 +196,6 @@ main {
 }
 
 .picture__img {
-  max-width: auto;
   width: 100%;
   height: auto;
 }
@@ -1199,7 +1198,7 @@ main {
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 99;
 
   background-color: rgba(0, 0, 0, 0.8);
 }
@@ -1294,6 +1293,10 @@ main {
  * Экран загрузки изображения
  */
 
+ .img-upload__message--loading {
+    z-index: 10;
+ }
+
 .img-upload__message--loading::before {
   content: "";
   position: absolute;
@@ -1314,16 +1317,26 @@ main {
   content: "";
   position: absolute;
   bottom: 40%;
-  left: 50%;
+  left: 29.2%;
 
-  width: 200px;
+  width: 50px;
   height: 10px;
 
   background-color: #ffe753;
+  animation: loading 1s infinite linear;
 
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
+}
+
+@keyframes loading {
+  from {
+    left: 29.2;
+  }
+  to {
+    left: 70.7%;
+  }
 }
 
 
@@ -1398,4 +1411,52 @@ main {
 
 .hidden {
   display: none;
+}
+
+/* Стилизация range-слайдера фильтра фотографии */
+.noUi-base {
+  left: -7px;
+}
+
+.noUi-connect {
+  box-sizing: border-box;
+  width: 495px;
+  background-color: #ffe753;
+}
+
+.noUi-connects {
+  position: relative;
+  top: -5px;
+  left: 50%;
+  max-width: 495px;
+  height: 33px;
+  border-radius: 33px;
+  transform: translateX(-50%);
+}
+
+.noUi-horizontal .noUi-handle {
+  position: absolute;
+  top: -9px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* сбросил значения из библиотеки */
+.noUi-horizontal .noUi-handle::before,
+.noUi-horizontal .noUi-handle::after {
+  display: none;
+}
+
+.noUi-horizontal .noUi-handle::after {
+  display: block;
+  content: var(--value-filter);
+  top: -2px;
+  left: -6px;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
 }

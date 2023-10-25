@@ -30,11 +30,14 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "browser-sync start --server --no-ui --files \"js/**/*.js\"",
+    "start": "browser-sync start --server ./build --no-ui --files \"build/js/**/*.js\"",
     "lint": "eslint js/"
   },
   "engines": {
     "node": "16.x",
     "npm": "8.x"
+  },
+  "dependencies": {
+    "nouislider": "^15.7.1"
   }
 }

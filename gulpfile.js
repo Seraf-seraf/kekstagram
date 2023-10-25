@@ -8,7 +8,6 @@ import rename from 'gulp-rename';
 import htmlmin from 'gulp-htmlmin';
 import terser from 'gulp-terser';
 import svgo from 'gulp-svgo';
-import imageminWebp from 'imagemin-webp';
 import imagemin from 'gulp-imagemin';
 import sync from 'browser-sync';
 import {deleteAsync} from 'del';
@@ -16,7 +15,7 @@ import {deleteAsync} from 'del';
 //Стили
 
 export const styles = () => {
-  return gulp.src('css/*.css')
+  return gulp.src('./css/*.css')
     .pipe(plumber())
     .pipe(sourcemap.init())
     .pipe(postcss([
@@ -65,7 +64,7 @@ export const html = () => {
 // js
 
 export const scripts = () => {
-  return gulp.src('js/*.js')
+  return gulp.src('js/**/*.js')
     .pipe(terser())
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('build/js'))
@@ -75,43 +74,28 @@ export const scripts = () => {
 // изображения; оптимизация svg, png, jpg
 
 export const optimizeImages = () => {
-  return gulp.src(['img/**/*.{svg,png,jpg}', 'photos/**/*'])
+  return gulp.src(['img/**/*.{svg,png,jpg}', 'photos/**/*'], {base: '.'})
     .pipe(svgo())
     .pipe(imagemin())
-    .pipe(gulp.dest((file) => {
-      if(file.path.includes('photos')) {
-        return 'photos';
-      }
-      return 'img';
-    }))
+    .pipe(gulp.dest('build'))
   };
 
 export const copyImages = () => {
-  return gulp.src(['img/**/*.{svg,png,jpg,webp}', 'photos/**/*'])
-  .pipe(gulp.dest((file) => {
-    if(file.path.includes('photos')) {
-      return 'build/photos';
-    }
-    return 'build/img';
-  }));
+  return gulp.src(['img/**/*.{svg,png,jpg}', 'photos/**/*'], {base: '.'})
+  .pipe(gulp.dest('build'));
 };
 
 export const copy = () => {
-  return gulp.src(['fonts/*', 'favicon.ico'])
-    .pipe(gulp.dest((file) => {
-    if(file.path.includes('fonts')) {
-      return 'build/fonts/';
-    }
-    return 'build';
-  }));
+  return gulp.src(['fonts/*', 'favicon.ico'], {base: '.'})
+    .pipe(gulp.dest('build'));
 };
 
 // Око Саурона
 
 export const watcher = () => {
   gulp.watch('*.html', gulp.series(html, reload));
-  gulp.watch('css/*', gulp.series(styles, reload));
-  gulp.watch('js/**/*.js', gulp.series(scripts));
+  gulp.watch('css/*.css', gulp.series(styles, reload));
+  gulp.watch(['js/**/*.js', 'pristine/**/*.js'], gulp.series(scripts));
   gulp.watch(['img/**/*', 'photos/**/*'], gulp.series(copyImages));
 };
 
@@ -121,7 +105,6 @@ export const build = gulp.series(
   clean,
   copy,
   optimizeImages,
-  copyImages,
   gulp.parallel(
     styles,
     html,

@@ -5,25 +5,16 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (upper - lower + 1) + lower);
 };
 
-const checkStringLength = (string, length) => string.length <= length;
-
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-const getIDFromRange = (min, max) => {
-  const previousValues = [];
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-  return function() {
-    if (previousValues.length >= (max - min + 1)) {
-      return null;
-    }
-    let currentValue;
-    do {
-      currentValue = getRandomNumber(min, max);
-    } while (previousValues.includes(currentValue));
-
-    previousValues.push(currentValue);
-    return currentValue;
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this , rest), timeoutDelay);
   };
 };
 
-export { getRandomNumber, checkStringLength, getRandomArrayElement, getIDFromRange };
+export { getRandomNumber, getRandomArrayElement, isEscapeKey, debounce };
