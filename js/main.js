@@ -1,3 +1,3 @@
+import { createPhoto } from './miniature.min.js';
 import { getUsers } from './data.min.js';
-
-getUsers();
+console.log(getUsers());

@@ -13,13 +13,14 @@ const getIDFromRange = (min, max) => {
   const previousValues = [];
 
   return function() {
-    let currentValue = getRandomNumber(min, max);
     if (previousValues.length >= (max - min + 1)) {
       return null;
     }
-    while (previousValues.includes(currentValue)) {
+    let currentValue;
+    do {
       currentValue = getRandomNumber(min, max);
-    }
+    } while (previousValues.includes(currentValue));
+
     previousValues.push(currentValue);
     return currentValue;
   };

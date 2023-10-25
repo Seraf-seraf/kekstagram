@@ -37,14 +37,15 @@ const createComment = () => {
 
 const createUser = () => {
   const currentID = getIDFromRange(1, 25);
+  const listID = currentID();
 
   return {
-    id: currentID(),
+    id: listID,
     name: getRandomArrayElement(NAMES),
     description: getRandomArrayElement(DESCRIPTION),
     likes: getRandomNumber(15, 200),
     comments: Array.from({length: getRandomNumber(0, 6)}, (_, commentIndex) => createComment(commentIndex + 1)),
-    url: `photos/${currentID()}.webp`,
+    url: `photos/${listID}.jpg`,
     avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
   };
 };

@@ -8,7 +8,8 @@ import rename from 'gulp-rename';
 import htmlmin from 'gulp-htmlmin';
 import terser from 'gulp-terser';
 import svgo from 'gulp-svgo';
-import webp from 'gulp-webp';
+import imageminWebp from 'imagemin-webp';
+import imagemin from 'gulp-imagemin';
 import sync from 'browser-sync';
 import {deleteAsync} from 'del';
 
@@ -76,18 +77,23 @@ export const scripts = () => {
 export const optimizeImages = () => {
   return gulp.src(['img/**/*.{svg,png,jpg}', 'photos/**/*'])
     .pipe(svgo())
-    .pipe(webp({quality: 70}))
+    .pipe(imagemin())
     .pipe(gulp.dest((file) => {
       if(file.path.includes('photos')) {
         return 'photos';
       }
       return 'img';
-    }));
+    }))
   };
 
 export const copyImages = () => {
-  return gulp.src('img/**/*')
-    .pipe(gulp.dest('build/img'));
+  return gulp.src(['img/**/*.{svg,png,jpg,webp}', 'photos/**/*'])
+  .pipe(gulp.dest((file) => {
+    if(file.path.includes('photos')) {
+      return 'build/photos';
+    }
+    return 'build/img';
+  }));
 };
 
 export const copy = () => {
@@ -106,7 +112,7 @@ export const watcher = () => {
   gulp.watch('*.html', gulp.series(html, reload));
   gulp.watch('css/*', gulp.series(styles, reload));
   gulp.watch('js/**/*.js', gulp.series(scripts));
-  gulp.watch('img/**/*', gulp.series(copyImages));
+  gulp.watch(['img/**/*', 'photos/**/*'], gulp.series(copyImages));
 };
 
 // build
