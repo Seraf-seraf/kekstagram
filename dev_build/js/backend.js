@@ -19,7 +19,7 @@ const getData = async(onSuccess) => {
 const setData = async(onSuccess, statusButton, statusLoader, body) => {
   statusLoader();
   try {
-    const response = await fetch('https://25.javascript.pages.academy/kekstagram',
+    const response = await fetch('https://25.javascript.htmlacademy.pro/kekstagram',
       {
         method: 'POST',
         body
