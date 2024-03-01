@@ -5,7 +5,7 @@ let userInformation = [];
 
 const getData = async(onSuccess) => {
   try {
-    const response = await fetch('https://25.javascript.pages.academy/kekstagram/data');
+    const response = await fetch('https://25.javascript.htmlacademy.pro/kekstagram/data');
     const users = await response.json();
     userInformation = users;
     users.forEach((user) => {
