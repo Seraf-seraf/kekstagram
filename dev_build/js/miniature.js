@@ -1,6 +1,5 @@
 import { userInformation } from './backend.min.js';
 import { debounce } from './util.min.js';
-// //Шаблон миниатюрной картинки на главной их генерируется 25 штук
 
 const clearMiniatures = () => {
   const pictureContainer = document.querySelector('.pictures');
